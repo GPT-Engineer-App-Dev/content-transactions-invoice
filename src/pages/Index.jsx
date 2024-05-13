@@ -1,4 +1,5 @@
 import { Container, VStack, Input, Button, Textarea, Box, Heading, Text } from "@chakra-ui/react";
+import { jsPDF } from 'jspdf';
 import { useState } from "react";
 
 const Index = () => {
@@ -9,6 +10,15 @@ const Index = () => {
   const generateInvoice = () => {
     const invoiceContent = `Invoice Details:\nContent: ${contentDetails}\nTransaction: ${transactionData}`;
     setInvoice(invoiceContent);
+
+    // Create a new PDF document
+    const doc = new jsPDF();
+
+    // Add text to PDF
+    doc.text(invoiceContent, 10, 10);
+
+    // Save the PDF
+    doc.save('invoice.pdf');
   };
 
   return (
