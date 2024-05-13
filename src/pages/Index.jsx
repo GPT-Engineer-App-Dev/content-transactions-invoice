@@ -1,17 +1,36 @@
-// Update this page (the content is just a fallback if you fail and example)
-// Use chakra-ui
-import { Container, Text, VStack } from "@chakra-ui/react";
-
-// Example of using react-icons
-// import { FaRocket } from "react-icons/fa";
-// <IconButton aria-label="Add" icon={<FaRocket />} size="lg" />; // IconButton would also have to be imported from chakra
+import { Container, VStack, Input, Button, Textarea, Box, Heading, Text } from "@chakra-ui/react";
+import { useState } from "react";
 
 const Index = () => {
+  const [contentDetails, setContentDetails] = useState("");
+  const [transactionData, setTransactionData] = useState("");
+  const [invoice, setInvoice] = useState("");
+
+  const generateInvoice = () => {
+    const invoiceContent = `Invoice Details:\nContent: ${contentDetails}\nTransaction: ${transactionData}`;
+    setInvoice(invoiceContent);
+  };
+
   return (
-    <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-      <VStack spacing={4}>
-        <Text fontSize="2xl">Your Blank Canvas</Text>
-        <Text>Chat with the agent to start making edits.</Text>
+    <Container centerContent maxW="container.md" p={4}>
+      <VStack spacing={4} w="full">
+        <Heading>Create Your Invoice</Heading>
+        <Textarea
+          placeholder="Enter content details"
+          value={contentDetails}
+          onChange={(e) => setContentDetails(e.target.value)}
+        />
+        <Textarea
+          placeholder="Enter transaction data"
+          value={transactionData}
+          onChange={(e) => setTransactionData(e.target.value)}
+        />
+        <Button colorScheme="blue" onClick={generateInvoice}>Generate Invoice</Button>
+        {invoice && (
+          <Box p={4} mt={4} w="full" borderWidth="1px" borderRadius="lg">
+            <Text>{invoice}</Text>
+          </Box>
+        )}
       </VStack>
     </Container>
   );
